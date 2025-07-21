@@ -1,9 +1,46 @@
+from flask import Flask, request, jsonify
 import pandas as pd
-from collections import Counter
-from itertools import combinations
-from datetime import datetime
-import numpy as np
 import os
+
+app = Flask(__name__)
+
+# 根路徑測試用
+@app.route('/')
+def home():
+    return '🎉 539 AI API 部署成功！'
+
+# 範例 API：回傳兩數相加
+@app.route('/add', methods=['GET'])
+def add():
+    try:
+        a = int(request.args.get('a', 0))
+        b = int(request.args.get('b', 0))
+        return jsonify({
+            'a': a,
+            'b': b,
+            'result': a + b
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
+# 這是你未來可以擴充放 539 分析的地方
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        data = request.json
+        # 模擬結果
+        result = {
+            'input': data,
+            'message': '預測邏輯未實作，請在這裡擴充你的 539 AI 分析'
+        }
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
+# 本地開發時才會啟動
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
 # === 替代農曆月份分析（以陽曆月近似）===
 def 分析_陽曆近似農曆(df_recent):
