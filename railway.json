@@ -2,8 +2,7 @@
   "build": {
     "env": {
       "PYTHONUNBUFFERED": "1"
-    },
-    "builder": "Dockerfile"
+    }
   },
   "deploy": {
     "startCommand": "gunicorn app:app",
